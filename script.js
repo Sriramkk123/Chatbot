@@ -155,7 +155,7 @@ async function getJoke() {
 }
 
 async function getNews() {
-    const response = await fetch('http://newsapi.org/v2/top-headlines?country=in&pageSize=1&apiKey=e0cdf057be3d4c869fd9ee126f70b0dd');
+    const response = await fetch('https://newsapi.org/v2/top-headlines?country=in&pageSize=1&apiKey=e0cdf057be3d4c869fd9ee126f70b0dd');
     const jsonResp = await response.json();
     return jsonResp;
 }
