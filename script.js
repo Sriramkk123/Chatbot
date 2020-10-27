@@ -88,6 +88,7 @@ class ChatTree {
     async init(){
         const data = await this.reset();
         this.chat_tree = data;
+        console.log("Inside init");
         this.firstMsg = true;
         console.log("inside done");
         return "Chat has now been terminated. Send hi to begin chat again !";
@@ -101,9 +102,9 @@ class ChatTree {
 
     async getMessage(input){
         let resp = '';
-        //input = new String(input.trim());
+        input = new String(input.trim());
         //console.log(input);
-        if(this.firstMsg===true && this.input == "Hello") {
+        if(this.firstMsg===true) {
             this.firstMsg = false;
             resp += "Hey there buddy<br>";
         } else {
@@ -112,7 +113,7 @@ class ChatTree {
                 return this.init();
             }
 
-            if(isNaN(parseInt(input)) || parseInt(input)<=0 || parseInt(input) > this.chat_tree['children'].length+1 || parseInt(input) !== 1 || parseInt(input) !== 2 || parseInt(input) !== 3 || parseInt(input) !== 4)
+            if(isNaN(parseInt(input)) || parseInt(input)<=0 || parseInt(input) > this.chat_tree['children'].length+1)
                 return 'It seems like you gave a wrong input ! Go ahead try again !';
 
             if(parseInt(input)-1===this.chat_tree['children'].length){
