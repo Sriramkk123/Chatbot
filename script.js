@@ -3,14 +3,6 @@ onload = function(){
 
         var chat = {
             messageToSend: '',
-            messageResponses: [
-                'Why did the web developer leave the restaurant? Because of the table layout.',
-                'How do you comfort a JavaScript bug? You console it.',
-                'An SQL query enters a bar, approaches two tables and asks: "May I join you?"',
-                'What is the most used language in programming? Profanity.',
-                'What is the object-oriented way to become wealthy? Inheritance.',
-                'An SEO expert walks into a bar, bars, pub, tavern, public house, Irish pub, drinks, beer, alcohol'
-            ],
             init: async function() {
                 this.chatTree = new ChatTree();
                 await this.chatTree.init();
@@ -100,49 +92,64 @@ class ChatTree {
         return jsonResponse;
     }
 
-    async getMessage(input){
+    async getMessage(input)
+    {
         let resp = '';
         input = new String(input.trim());
         //console.log(input);
-        if(this.firstMsg===true) {
+        if(this.firstMsg===true) 
+        {
             this.firstMsg = false;
             resp += "Hey there buddy<br>";
-        } else {
+        } 
+        else if(parseInt(input) == 4)
+        {
+            resp += 'Bye bye!';
+            this.init();
+            return resp;
+        }
+        else 
+        {
 
-            if(("message" in this.chat_tree) && (input.trim()==="Continue") || (("message" in this.chat_tree) && (input.trim()==="continue"))) {
+            if(("message" in this.chat_tree) && (input.trim()==="Continue") || (("message" in this.chat_tree) && (input.trim()==="continue"))) 
+            {
                 return this.init();
             }
 
             if(isNaN(parseInt(input)) || parseInt(input)<=0 || parseInt(input) > this.chat_tree['children'].length+1)
                 return 'It seems like you gave a wrong input ! Go ahead try again !';
 
-            if(parseInt(input)-1===this.chat_tree['children'].length){
+            if(parseInt(input)-1===this.chat_tree['children'].length)
+            {
                 this.init();
             }
 
             this.chat_tree = this.chat_tree['children'][parseInt(input)-1];
         }
 
-        if("message" in this.chat_tree){
+        if("message" in this.chat_tree)
+        {
             let data;
-            if(this.chat_tree['type']==="function"){
+            if(this.chat_tree['type']==="function")
+            {
                 // console.log(String(this.chat_tree['message']),String("getJoke()"));
-                if(this.chat_tree['message']==="getJoke()"){
+                if(this.chat_tree['message']==="getJoke()")
+                {
                     data = await eval(this.chat_tree['message']);
                     let setup = data[0].setup + "<br>";
                     let punchline = data[0].punchline;
                     data = setup + punchline;
-                } else{
-                    data = await eval(this.chat_tree['message']);
-                    data = data.status;
-                    console.log(data);
                 }
-            } else{
+            } 
+            else
+            {
                 data = this.chat_tree['message'];
             }
             resp += data;
             resp += "<br><br>Please input <b>Continue</b> to restart chat now";
-        } else {
+        } 
+        else 
+        {
             for (let i in this.chat_tree['child_msg']) {
                 resp += String(parseInt(i) + 1) + ". " + this.chat_tree['child_msg'][parseInt(i)] + "<br>";
             }
@@ -151,14 +158,9 @@ class ChatTree {
     }
 }
 
-async function getJoke() {
+async function getJoke() 
+{
     const response = await fetch('https://official-joke-api.appspot.com/random_ten');
-    const jsonResp = await response.json();
-    return jsonResp;
-}
-
-async function getNews() {
-    const response = await fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=e0cdf057be3d4c869fd9ee126f70b0dd');
     const jsonResp = await response.json();
     return jsonResp;
 }
