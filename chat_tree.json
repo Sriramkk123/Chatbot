@@ -22,7 +22,7 @@
       "child_msg" : ["Local News","National News","World News","Terminate chat"],
       "children" : [
         {
-          "message" : "Bangalore gets heavy rains",
+          "message" : "Bangalore gets heavy rain",
           "type" : "normal"
         },
         {
