@@ -22,8 +22,8 @@
       "child_msg" : ["Local News","National News","World News","Terminate chat"],
       "children" : [
         {
-          "message" : "getNews()",
-          "type" : "function"
+          "message" : "Bangalore gets heavy rains",
+          "type" : "normal"
         },
         {
           "message" : "India is the best",
