@@ -132,7 +132,8 @@ class ChatTree {
                     data = data.value.joke;
                 } else{
                     data = await eval(this.chat_tree['message']);
-                    data = data.articles[0].title;
+                    data = data.status;
+                    console.log(data);
                 }
             } else{
                 data = this.chat_tree['message'];
@@ -155,7 +156,7 @@ async function getJoke() {
 }
 
 async function getNews() {
-    const response = await fetch('https://newsapi.org/v2/top-headlines?country=in&apiKey=e0cdf057be3d4c869fd9ee126f70b0dd');
+    const response = await fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=e0cdf057be3d4c869fd9ee126f70b0dd');
     const jsonResp = await response.json();
     return jsonResp;
 }
