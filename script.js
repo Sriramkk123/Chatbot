@@ -88,10 +88,10 @@ class ChatTree {
     async init(){
         const data = await this.reset();
         this.chat_tree = data;
-        console.log("Inside init");
+        //console.log("Inside init");
         this.firstMsg = true;
-        console.log("inside done");
-        return "Chat has now been terminated. Send hi to begin chat again !";
+        //console.log("inside done");
+        return "Chat has now been terminated. Send anything to begin chat again !";
     }
 
     async reset(){
@@ -109,7 +109,7 @@ class ChatTree {
             resp += "Hey there buddy<br>";
         } else {
 
-            if(("message" in this.chat_tree) && (input.trim()==="Reset")) {
+            if(("message" in this.chat_tree) && (input.trim()==="Continue") || (("message" in this.chat_tree) && (input.trim()==="continue"))) {
                 return this.init();
             }
 
@@ -129,7 +129,9 @@ class ChatTree {
                 // console.log(String(this.chat_tree['message']),String("getJoke()"));
                 if(this.chat_tree['message']==="getJoke()"){
                     data = await eval(this.chat_tree['message']);
-                    data = data.value.joke;
+                    let setup = data[0].setup + "<br>";
+                    let punchline = data[0].punchline;
+                    data = setup + punchline;
                 } else{
                     data = await eval(this.chat_tree['message']);
                     data = data.status;
@@ -139,7 +141,7 @@ class ChatTree {
                 data = this.chat_tree['message'];
             }
             resp += data;
-            resp += "<br><br>Please input <b>Reset</b> to reset chat now";
+            resp += "<br><br>Please input <b>Continue</b> to restart chat now";
         } else {
             for (let i in this.chat_tree['child_msg']) {
                 resp += String(parseInt(i) + 1) + ". " + this.chat_tree['child_msg'][parseInt(i)] + "<br>";
@@ -150,7 +152,7 @@ class ChatTree {
 }
 
 async function getJoke() {
-    const response = await fetch('http://api.icndb.com/jokes/random');
+    const response = await fetch('https://official-joke-api.appspot.com/random_ten');
     const jsonResp = await response.json();
     return jsonResp;
 }
