@@ -100,7 +100,7 @@ class ChatTree {
         if(this.firstMsg===true) 
         {
             this.firstMsg = false;
-            resp += "Hey there buddy<br>";
+            resp += "Hey there buddy choose a number<br>";
         } 
         else if(parseInt(input) == 4)
         {
